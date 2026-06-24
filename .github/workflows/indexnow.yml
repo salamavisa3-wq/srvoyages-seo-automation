@@ -1,0 +1,31 @@
+name: SRVoyages SEO - Auto Index Submission
+
+on:
+  schedule:
+    # Runs daily at 06:00 UTC (07:00 Dakar time)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    # Allow manual trigger from GitHub Actions UI
+
+jobs:
+  submit-urls:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run IndexNow submission
+        run: python indexnow-submit.py
+
+      - name: Log completion
+        run: |
+          echo "IndexNow submission completed at $(date -u)"
+          echo "Next run scheduled for tomorrow at 06:00 UTC"
