@@ -20,3 +20,5 @@ jobs:
         run: python rank-tracker.py
       - name: NAP citation checker (8 directories)
         run: python citation-checker.py
+      - name: GMB presence & site health tracker
+        run: python gmb-tracker.py
