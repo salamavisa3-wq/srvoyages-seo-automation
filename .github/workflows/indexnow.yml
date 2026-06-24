@@ -1,8 +1,8 @@
-name: SRVoyages Local SEO â€” Daily Monitor & IndexNow
+name: SRVoyages Local SEO — Daily Monitor & IndexNow
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # Daily at 06:00 UTC (07:00 Dakar)
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,9 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests
-      - name: Run SEO monitor & IndexNow submission
-        run: python rank-tracker.py
-      - name: Run IndexNow full submission
+      - name: IndexNow full submission (all sitemap URLs)
         run: python indexnow-submit.py
+      - name: SEO rank monitor & health check
+        run: python rank-tracker.py
+      - name: NAP citation checker (8 directories)
+        run: python citation-checker.py
