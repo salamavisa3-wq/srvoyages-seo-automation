@@ -13,11 +13,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install requests
+      - run: pip install requests google-api-python-client google-auth
       - name: IndexNow full submission (all sitemap URLs)
         run: python indexnow-submit.py
       - name: SEO rank monitor & health check
         run: python rank-tracker.py
+      - name: GSC real rank tracking
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: python gsc-rank-tracker.py
       - name: NAP citation checker (8 directories)
         run: python citation-checker.py
       - name: GMB presence & site health tracker
